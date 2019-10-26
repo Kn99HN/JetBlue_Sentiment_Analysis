@@ -1,7 +1,6 @@
 import tweepy as twp
 import json
-import csv 
-import pandas as pd
+import csv
 
 keys = {}
 with open("key.json","r") as f:
@@ -19,9 +18,13 @@ auth.set_access_token(access_token, access_secret)
 #Creation of the interface
 tw_api = twp.API(auth)
 
+csvFile = open('jetblue.csv', 'a')
+csvWriter = csv.writer(csvFile)
+index = 0;
 
-def clean():
-    colnames = ['Time', 'Tweet']
-    jetblue = pd.read_csv(r'jetblue.csv', names = colnames)
-    return jetblue
-    
+for tweet in twp.Cursor(tw_api.search,q="#JetBlue",count=100, lang="en", since="2017-04-03").items(400):
+    print(index, tweet.created_at, tweet.text)
+    index +=1
+    csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8')])
+print(tw_api)
+
