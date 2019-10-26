@@ -1,5 +1,7 @@
 import tweepy as twp
 import json
+import csv 
+import pandas as pd
 
 keys = {}
 with open("key.json","r") as f:
@@ -20,5 +22,10 @@ for tweet in twp.Cursor(tw_api.search,q="#jetblue",count=100,
                            lang="en",
                            since="2017-04-03").items():
     print(tweet.created_at, tweet.text)
-print(tw_api)
 
+
+def clean():
+    colnames = ['Time', 'Tweet']
+    jetblue = pd.read_csv(r'jetblue.csv', names = colnames)
+    return jetblue
+    
