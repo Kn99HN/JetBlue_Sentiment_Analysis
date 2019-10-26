@@ -8,7 +8,6 @@ Created on Sat Oct 26 09:44:22 2019
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize, sent_tokenize
-from monkeylearn
 
 analyzer = SentimentIntensityAnalyzer()
 def get_sentiment(media):
