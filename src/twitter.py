@@ -49,12 +49,9 @@ def writeCSV():
 
 
 def filterCSV(string):
-    with open('jetblue.csv', 'r') as csvfile:
+    with open(r'../Data/jetblue.csv', 'r') as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         for row in readCSV:
-            # print(row)
-            # print(row[0])
-            # print(row[1][1:])
             if compare(row[1][1:], string) == 0:
                 return 0
     return 1

@@ -10,7 +10,7 @@ import bs4
 import requests
 import time
 import csv 
-
+import datetime 
 def parse_review(text):
     if '|' in text: 
         text = text.split('|')
@@ -20,10 +20,11 @@ def parse_review(text):
 
 def get_soup(res):
     soup = bs4.BeautifulSoup(res.text, "html.parser")
-    return soup.find_all('div', {"class": "text_content"})
+    return soup.find_all('div', {"class": "body"})
+
 
 def write_csv():
-    csvFile = open('review.csv', 'a')
+    csvFile = open(r'../Data/review.csv', 'a')
     # Makes sures line ends with one new line
     csvWriter = csv.writer(csvFile)
     return csvWriter
@@ -36,11 +37,14 @@ def get_reviews():
         res = requests.get(url)
         soup = get_soup(res)
         for review in soup:
-            review = str(parse_review(review.text))
+            rev = review.find('div',{"class": "text_content"}).text
+            rev = str(parse_review(rev))
+            date = review.find('time').attrs['datetime']
+            review = str(parse_review(rev))
             if "Read more" in review:
                 continue
-            csvWriter.writerow([review.encode('utf-8')])
+            csvWriter.writerow([date, review.encode('utf-8')])
     
         #time.sleep(0.5) # be nice to the webserver
 
-get_reviews()
+review = get_reviews()

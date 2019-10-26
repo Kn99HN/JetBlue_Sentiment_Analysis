@@ -16,7 +16,8 @@ def get_sentiment(media):
 
 def get_data():
     col_names = ['Time','Tweet']
-    jetblue = pd.read_csv('jetblue.csv', names = col_names)
+    jetblue = pd.read_csv(r'../Data/jetblue.csv', names = col_names, 
+                          )
     return jetblue
 
 def sentiment():
@@ -41,8 +42,9 @@ def process_rev(rev):
     return rev
 
 def get_review():
-    col_names = ['Review']
-    review = pd.read_csv('review.csv', names = col_names, encoding = 'utf-8')
+    col_names = ['Time','Review']
+    review = pd.read_csv(r'../Data/review.csv', names = col_names, 
+                         encoding = 'utf-8')
     reviews = review['Review']
     sentiments = []
     for rev in reviews:
@@ -52,6 +54,7 @@ def get_review():
     review['Sentiment'] = sentiments
     return review
 
+review = get_review()
 
 
 
