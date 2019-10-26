@@ -30,24 +30,17 @@ def write_csv():
     
 def get_reviews():
     csvWriter = write_csv()
-    
-    for page in range(1,74):
-        print(page)
+    for page in range(1,75):
         url = 'https://www.airlinequality.com/airline-reviews/jetblue-airways'
-        if page == 1:
-            res = requests.get(url)
-            soup = get_soup(res)
-            for review in soup:
-                review = str(parse_review(review.text))
-                csvWriter.writerow([review.encode('utf-8')])
-
-        else:
-            url += '/page/' + str(page) + '/'
-            res = requests.get(url)
-            for review in soup:
-                review = str(parse_review(review.text))
-                csvWriter.writerow([review.encode('utf-8')])
+        url += '/page/' + str(page) + '/'
+        res = requests.get(url)
+        soup = get_soup(res)
+        for review in soup:
+            review = str(parse_review(review.text))
+            if "Read more" in review:
+                continue
+            csvWriter.writerow([review.encode('utf-8')])
     
-    time.sleep(0.5) # be nice to the webserver
+        #time.sleep(0.5) # be nice to the webserver
 
 get_reviews()

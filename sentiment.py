@@ -30,7 +30,31 @@ def sentiment():
 
 jetblue = sentiment()
 
+def process_rev(rev):
+    if 'b' in rev: 
+        if 'b\'' in rev: 
+            rev = rev.split('b\'',1)
+        else:
+            rev = rev.split('b\"',1)
+        rev = rev[1]
+    return rev
+
 def get_review():
     col_names = ['Review']
-    review = pd.read_csv('review.csv')
+    review = pd.read_csv('review.csv', names = col_names, encoding = 'utf-8')
+    reviews = review['Review']
+    sentiments = []
+    for rev in reviews:
+        rev = process_rev(rev)
+        value = get_sentiment(rev)
+        sentiments.append(value)
+    review['Sentiment'] = sentiments
+    return review
+
+review = get_review()
+review.hist()
+
+
+
+
     
