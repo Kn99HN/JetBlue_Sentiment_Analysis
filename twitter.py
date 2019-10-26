@@ -18,10 +18,6 @@ auth.set_access_token(access_token, access_secret)
 
 #Creation of the interface
 tw_api = twp.API(auth)
-for tweet in twp.Cursor(tw_api.search,q="#jetblue",count=100,
-                           lang="en",
-                           since="2017-04-03").items():
-    print(tweet.created_at, tweet.text)
 
 
 def clean():
