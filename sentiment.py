@@ -28,7 +28,9 @@ def sentiment():
     jetblue['Sentiment'] = sentiments
     return jetblue
 
+jetblue = sentiment()
 
-
-
+def get_review():
+    col_names = ['Review']
+    review = pd.read_csv('review.csv')
     
