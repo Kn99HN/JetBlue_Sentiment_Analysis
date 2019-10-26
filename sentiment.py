@@ -44,10 +44,13 @@ def get_review():
     review = pd.read_csv('review.csv', names = col_names, encoding = 'utf-8')
     reviews = review['Review']
     sentiments = []
+    new_rev = []
     for rev in reviews:
         rev = process_rev(rev)
+        new_rev.append(rev)
         value = get_sentiment(rev)
         sentiments.append(value)
+    review['Review'] = new_rev
     review['Sentiment'] = sentiments
     return review
 

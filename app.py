@@ -7,8 +7,10 @@ Created on Sat Oct 26 13:48:02 2019
 """
 
 from flask import Flask, jsonify
-from flask_cors import CORS
 
+# instantiate the app
+app = Flask(__name__)
+app.config.from_object(__name__)
 
 
 @app.route('/')

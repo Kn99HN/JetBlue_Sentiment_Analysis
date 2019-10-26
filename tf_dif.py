@@ -108,6 +108,12 @@ def get_df(text):
     df = df[df['scores'] > 0.05]
     return df
 
+def get_max(text):
+    df = get_df(text)
+    max_freq = df['scores'].max()
+    df = df[df['scores']] == max_freq
+    return df
+
 
 
                 
