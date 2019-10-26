@@ -5,7 +5,7 @@ Created on Sat Oct 26 09:44:22 2019
 
 @author: khanhnguyen
 """
-
+import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 analyzer = SentimentIntensityAnalyzer()
