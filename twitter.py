@@ -19,7 +19,7 @@ auth.set_access_token(access_token, access_secret)
 tw_api = twp.API(auth)
 
 csvFile = open('jetblue.csv', 'a')
-csvWriter = csv.writer(csvFile)
+csvWriter = csv.writer(csvFile, lineterminator = '\n')
 index = 0;
 
 for tweet in twp.Cursor(tw_api.search,q="#JetBlue",count=100, lang="en", since="2017-04-03").items(400):
