@@ -28,7 +28,7 @@
         <!--    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>-->
         <title>Title</title>
     </head>
-    <body>
+    <body class="background-color">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="/">JetBlue Sentiment Analyzer</a>
             <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
@@ -58,17 +58,33 @@
         </nav>
     </body>
 
-    <div class="jumbotron">
-      <h1 class="display-3">jetBlue Sentiment Analysis Project</h1>
-      <p class="lead">This project is Khanh and Aron's attempt to understand the 
-                      customers' reviews about jetBlue Airways. Our hypothesis 
-                      is that customers who do review online usually will fall on
-                      either extreme, super negative or positive. Hence, we use
-                      Python and its various libraries to parse and process the data.
-                      We use Plotly libraries to create interactive plots to 
-                      see the trends of the customers' feedback. 
+    <div class="center about-margins">
+      <h1 class="about-header-margin">jetBlue Sentiment Analysis Project</h1>
+      <p class="lead about-body-margin">This project is Khanh and Aron's attempt to understand the
+                      customers' reviews about jetBlue Airways. We wanted to see what the general sentiment
+                      around customers who do review online about jetBlue. We found that they tend to fall on
+                      either extreme(super negative or positive), which is expected given the polarization trend
+                      on the internet. We use Python and its various libraries to parse and process the data.
+                      We use Plotly libraries to create interactive plots to see the trends of the customers' feedback,
+                      and we created this webpage to view these plots.
     </p>
-      <hr class="my-4">
+        <div class="row align-center">
+            <div class="card border-dark mb-3 spacing" style="min-width: 20rem;">
+                  <div class="card-header">Contact</div>
+                  <div class="card-body">
+                    <h4 class="card-title">Khanh Nguyen</h4>
+                    <p class="card-text">email: kn1600@nyu.edu</p>
+                  </div>
+                </div>
+                <div class="card border-dark mb-3" style="min-width: 20rem;">
+                  <div class="card-header">Contact</div>
+                  <div class="card-body">
+                    <h4 class="card-title">Aron Sun</h4>
+                    <p class="card-text">email: aronsun@umd.edu</p>
+                  </div>
+            </div>
+        </div>
+<!--      <hr class="my-4">-->
       <!--<p class="lead"> -->
        <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
       <!--</p> -->
