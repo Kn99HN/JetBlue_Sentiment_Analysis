@@ -7,92 +7,139 @@ Created on Sat Oct 26 15:52:07 2019
 """
 
 import pandas as pd
-import numpy as np
 import tf_dif 
 import sentiment
-from datetime import datetime
-import matplotlib.pyplot as plt
-
 from plotly.offline import plot
 import plotly.graph_objects as go
-# Offline mode
-#from plotly.offline import init_notebook_mode, iplot
-#init_notebook_mode(connected = True)
 
-
+#Set up the data 
 reviews = sentiment.get_review()
-reviews = reviews.sort_values(by='Time')
-date =  reviews['Time']
-sentiment = reviews['Sentiment']
-reviews_data = pd.DataFrame({'Time': date, 'Sentiment': sentiment})
-reviews_data['Time'] = pd.to_datetime(reviews_data['Time'], format='%Y-%m-%d')
-reviews_data = reviews_data.reset_index(drop=True)
+tweets = sentiment.get_tweet()
 
 def gcolor(val):
     if val < 0:
-        color = 'green'
-    elif val == 0:
-        color = 'yellow'
-    elif val > 0:
         color = 'red'
-    return color
+        sentiment = 'Negative'
+    elif val == 0:
+        color = 'darkblue'
+        sentiment = 'Neutral'
+    elif val > 0:
+        color = 'green'
+        sentiment = 'Positive'
+    return color, sentiment
 
-def get_colors(sentiments):
-    sentiment_list = list(sentiments)
+def parse_string(tweet):
+    clean_tw = tweet.replace('\"','')
+    clean_tw = tweet.replace('\'','')
+    if 'b' in clean_tw:
+        clean_tw = tweet.replace('b', '')
+    if 'AT_USER' in clean_tw:
+        clean_tw = clean_tw.replace('AT_USER','@user')
+    if 'URL' in clean_tw:
+        clean_tw = clean_tw.replace('URL','')
+    return clean_tw
+
+def get_colors(data):
+    sentiment_list = list(data.Sentiment)
     colors = []
-    for values in sentiment_list:
-        color = gcolor(values)
+    rank_sent = []
+    for values, tweet in zip(sentiment_list, data.Tweet):
+        color, sent_val = gcolor(values)
+        tweet = parse_string(tweet)
+        sent_val += "<br>" + tweet 
+        rank_sent.append(sent_val)
         colors.append(color)
-    return colors
+    return colors, rank_sent
 
-col = get_colors(reviews_data.Sentiment)
-
-new_data = go.Scatter(x=reviews_data.Time,
-                         y=reviews_data.Sentiment, mode = 'markers',
-                         opacity = 0.8, marker = dict(color = col))
-layout = go.Layout(
-                   title='JetBlue Sentiment Plot',
+def plot_all_tweets(data):
+    data = data.sort_values(by='Time')
+    data['Time'] = pd.to_datetime(data['Time'], format='%Y-%m-%d')
+    
+    #Get the color 
+    col, sent_list = get_colors(data)
+    new_texts = join_text(sent_list)
+    new_data = go.Scatter(x=data.Time,
+                         y=data.Sentiment, mode = 'markers',
+                         opacity = 1, 
+                         marker = dict(size=12,line=dict(width=2,
+                        color='DarkSlateGrey'), color = col), 
+                         hovertext = new_texts, hoverinfo = "text" 
+                          )
+    layout = go.Layout(
+                    plot_bgcolor='rgba(10,10,10)',
+                   title=go.layout.Title(text="JetBlue Sentiment Analysis", 
+                                         xref="paper", x=0),
                    # Same x and first y
-                   xaxis=dict(title='Date'),
-                   yaxis=dict(title='Sentiment', color='red') 
-                   )
-fig = go.Figure(data=[new_data], layout=layout)
+                   xaxis= go.layout.XAxis(
+                           title= go.layout.xaxis.Title(text='Date',
+                                   font=dict(family='Courier New, monospace',
+                                             size=20,
+                                             color='darkblue'))),
+                    yaxis=go.layout.YAxis(
+                            title=go.layout.yaxis.Title(text='Sentiment Score', 
+                                   font=dict(family='Courier New, monospace',
+                                             size=20,color='darkblue'))))
+    fig = go.Figure(data=[new_data], layout=layout)
+    plot(fig, filename = 'templates/twitterplot.html', auto_open = False) 
+    
+def get_colors_review(data):
+    sentiment_list = list(data.Sentiment)
+    colors = []
+    rank_sent = []
+    for values, review in zip(sentiment_list, data.Review):
+        color, sent_val = gcolor(values)
+        review = parse_string(review)
+        sent_val += "<br>" + review 
+        rank_sent.append(sent_val)
+        colors.append(color)
+    return colors, rank_sent
+
+def join_text(string_list):
+    new_text = []
+    for word in string_list:
+        short = word.split()
+        n = 5
+        short = [' '.join(short[x:x+n]) for x in range(0, len(short), n)]
+        text = '<br>'.join(short)
+        new_text.append(text)
+    return new_text
+    
+def plot_all_reviews(data):
+    data = data.sort_values(by='Time')
+    data['Time'] = pd.to_datetime(data['Time'], format='%Y-%m-%d')
+    
+    #Get the color 
+    col, sent_list = get_colors_review(data)
+    new_texts = join_text(sent_list)
+    new_data = go.Scatter(x=data.Time,
+                         y=data.Sentiment, mode = 'markers',
+                         opacity = 1, 
+                         marker = dict(size=12,line=dict(width=2,
+                        color='DarkSlateGrey'), color = col), hoverinfo = "text",
+                         hovertemplate = '<br><b>Sentiment Score: </b>: %{y}<br>'
+                                         '<b>%{text}</b>',
+                        text = new_texts
+                          )
+    layout = go.Layout(
+                    plot_bgcolor='rgba(10,10,10)',
+                   title=go.layout.Title(text="JetBlue Sentiment Analysis", 
+                                         xref="paper", x=0),
+                   # Same x and first y
+                   xaxis= go.layout.XAxis(
+                           title= go.layout.xaxis.Title(text='Date',
+                                   font=dict(family='Courier New, monospace',
+                                             size=20,
+                                             color='darkblue'))),
+                    yaxis=go.layout.YAxis(
+                            title=go.layout.yaxis.Title(text='Sentiment Score', 
+                                   font=dict(family='Courier New, monospace',
+                                             size=20,color='darkblue'))))
+    fig = go.Figure(data=[new_data], layout=layout)
+    plot(fig, filename = 'templates/reviewplot.html', auto_open = False) 
 
 
-#fig.add_scattergl(x = xs, y = df.y.where(df.y <= 35), line ={‘color’ : ‘green’})
-'''fig = go.Figure(go.Scatter(x=reviews_data.index,
-                         y=reviews_data.Sentiment, mode = 'markers',
-                         opacity = 0.8))
-fig.add_scatter(x= reviews_data.index, 
-                  y=  reviews_data.Sentiment.where(reviews_data.Sentiment >= 0), 
-                  marker={'color': 'red'})
-
-fig.add_scatter(x= reviews_data.index, 
-                  y=reviews_data.Sentiment.where(reviews_data.Sentiment < 0), 
-                  marker={'color': 'blue'}) '''
-plot(fig) 
+plot_all_tweets(tweets)
+plot_all_reviews(reviews)
 
 
-
-
-
-
-
-
-#date_objects = [datetime.strptime(date, '%Y-%m-%d').date() for date in dates]
-#plt.scatter(date_objects, sentiments, marker = 'o')
-
-def plot_neg():
-    neg_sentiments = reviews[reviews['Sentiment'] <= -0.5]
-    dates = neg_sentiments['Time']
-    neg_sentiments = neg_sentiments['Sentiment']
-    date_objects = [datetime.strptime(date, '%Y-%m-%d').date() for date in dates]
-    plt.scatter(date_objects, neg_sentiments, marker = 'o')
-
-def plot_positive():
-    pos_sentiments = reviews[reviews['Sentiment'] >= 0.25]
-    dates = pos_sentiments['Time']
-    pos_sentiments = pos_sentiments['Sentiment']
-    date_objects = [datetime.strptime(date, '%Y-%m-%d').date() for date in dates]
-    plt.scatter(date_objects, pos_sentiments, marker = 'o')
     

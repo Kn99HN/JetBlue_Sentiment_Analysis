@@ -7,21 +7,15 @@ Created on Sat Oct 26 09:44:22 2019
 """
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from nltk.tokenize import word_tokenize, sent_tokenize
 
 analyzer = SentimentIntensityAnalyzer()
 def get_sentiment(media):
     score = analyzer.polarity_scores(media)
     return score['compound']
 
-def get_data():
+def get_tweet():
     col_names = ['Time','Tweet']
-    jetblue = pd.read_csv(r'../Data/jetblue.csv', names = col_names, 
-                          )
-    return jetblue
-
-def sentiment():
-    jetblue = get_data()
+    jetblue = pd.read_csv(r'../Data/jetblue.csv', names = col_names)
     tweets = list(jetblue['Tweet'])
     sentiments = []
     for tweet in tweets:
@@ -30,17 +24,6 @@ def sentiment():
     jetblue['Sentiment'] = sentiments
     return jetblue
 
-jetblue = sentiment()
-
-def process_rev(rev):
-    if 'b' in rev: 
-        if 'b\'' in rev: 
-            rev = rev.split('b\'',1)
-        else:
-            rev = rev.split('b\"',1)
-        rev = rev[1]
-    return rev
-
 def get_review():
     col_names = ['Time','Review']
     review = pd.read_csv(r'../Data/review.csv', names = col_names, 
@@ -48,7 +31,6 @@ def get_review():
     reviews = review['Review']
     sentiments = []
     for rev in reviews:
-        rev = process_rev(rev)
         value = get_sentiment(rev)
         sentiments.append(value)
     review['Sentiment'] = sentiments
