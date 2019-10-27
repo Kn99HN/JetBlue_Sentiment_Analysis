@@ -8,9 +8,7 @@ Created on Sat Oct 26 10:44:30 2019
 
 import bs4
 import requests
-import time
 import csv 
-import datetime 
 def parse_review(text):
     if '|' in text: 
         text = text.split('|')
@@ -28,7 +26,7 @@ def write_csv():
     # Makes sures line ends with one new line
     csvWriter = csv.writer(csvFile)
     return csvWriter
-    
+
 def get_reviews():
     csvWriter = write_csv()
     for page in range(1,75):
@@ -39,12 +37,13 @@ def get_reviews():
         for review in soup:
             rev = review.find('div',{"class": "text_content"}).text
             rev = str(parse_review(rev))
-            date = review.find('time').attrs['datetime']
+            date = review.find('time').attrs['datetime'] 
             review = str(parse_review(rev))
             if "Read more" in review:
                 continue
-            csvWriter.writerow([date, review.encode('utf-8')])
+            csvWriter.writerow([date, review])
     
-        #time.sleep(0.5) # be nice to the webserver
 
-review = get_reviews()
+            
+#review = get_reviews()
+
