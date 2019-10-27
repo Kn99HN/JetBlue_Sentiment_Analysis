@@ -6,8 +6,7 @@ Created on Sat Oct 26 15:52:07 2019
 @author: khanhnguyen
 """
 
-import pandas as pd
-import tf_dif 
+import pandas as pd 
 import sentiment
 from plotly.offline import plot
 import plotly.graph_objects as go
