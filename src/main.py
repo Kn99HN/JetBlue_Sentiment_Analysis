@@ -9,14 +9,19 @@ import sentiment
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 
+
 @app.route('/')
 def result():
     return render_template("index.html")
 
 
-@app.route('/data')
-def data():
-    return render_template("data.html")
+@app.route('/twitter_data')
+def twitter_data():
+    return render_template("twitter_data.html")
+
+@app.route('/airquality_data')
+def airlinequality_data():
+    return render_template("airquality_data.html")
 
 
 @app.route('/randomizer/', methods=['POST'])
