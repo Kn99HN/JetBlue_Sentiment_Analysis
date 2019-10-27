@@ -9,7 +9,6 @@ import sentiment
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 
-data = sentiment.get_data()
 @app.route('/')
 def result():
     return render_template("index.html")
