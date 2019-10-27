@@ -82,3 +82,38 @@
     font-size: 20px;
     color: #e8decd;
 }
+
+.center {
+    margin-bottom: 0;
+    height: 50rem;
+}
+
+.aqheader {
+    margin-top: 5rem;
+    margin-bottom: auto;
+    font-size: 50px;
+    text-align: center;
+}
+
+.about-margins {
+    margin-left: 20rem;
+    margin-right: 20rem;
+}
+
+.about-header-margin {
+    margin-top: 10rem;
+}
+
+.about-body-margin {
+    margin-top: 5rem;
+}
+
+.spacing {
+    margin-right: 5rem;
+}
+
+.align-center {
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
