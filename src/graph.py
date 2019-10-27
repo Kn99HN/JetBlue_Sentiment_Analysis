@@ -57,13 +57,13 @@ def plot_all_tweets(data):
     
     #Get the color 
     col, sent_list = get_colors(data)
-
+    new_texts = join_text(sent_list)
     new_data = go.Scatter(x=data.Time,
                          y=data.Sentiment, mode = 'markers',
                          opacity = 1, 
                          marker = dict(size=12,line=dict(width=2,
                         color='DarkSlateGrey'), color = col), 
-                         hovertext = sent_list, hoverinfo = "text" 
+                         hovertext = new_texts, hoverinfo = "text" 
                           )
     layout = go.Layout(
                     plot_bgcolor='rgba(10,10,10)',
@@ -80,7 +80,7 @@ def plot_all_tweets(data):
                                    font=dict(family='Courier New, monospace',
                                              size=20,color='darkblue'))))
     fig = go.Figure(data=[new_data], layout=layout)
-    plot(fig) 
+    plot(fig, filename = 'templates/twitterplot.html', auto_open = False) 
     
 def get_colors_review(data):
     sentiment_list = list(data.Sentiment)
@@ -94,19 +94,31 @@ def get_colors_review(data):
         colors.append(color)
     return colors, rank_sent
 
+def join_text(string_list):
+    new_text = []
+    for word in string_list:
+        short = word.split()
+        n = 5
+        short = [' '.join(short[x:x+n]) for x in range(0, len(short), n)]
+        text = '<br>'.join(short)
+        new_text.append(text)
+    return new_text
+    
 def plot_all_reviews(data):
     data = data.sort_values(by='Time')
     data['Time'] = pd.to_datetime(data['Time'], format='%Y-%m-%d')
     
     #Get the color 
     col, sent_list = get_colors_review(data)
-
+    new_texts = join_text(sent_list)
     new_data = go.Scatter(x=data.Time,
                          y=data.Sentiment, mode = 'markers',
                          opacity = 1, 
                          marker = dict(size=12,line=dict(width=2,
-                        color='DarkSlateGrey'), color = col), 
-                         hovertext = sent_list, hoverinfo = "text" 
+                        color='DarkSlateGrey'), color = col), hoverinfo = "text",
+                         hovertemplate = '<br><b>Sentiment Score: </b>: %{y}<br>'
+                                         '<b>%{text}</b>',
+                        text = new_texts
                           )
     layout = go.Layout(
                     plot_bgcolor='rgba(10,10,10)',
@@ -123,9 +135,11 @@ def plot_all_reviews(data):
                                    font=dict(family='Courier New, monospace',
                                              size=20,color='darkblue'))))
     fig = go.Figure(data=[new_data], layout=layout)
-    plot(fig) 
+    plot(fig, filename = 'templates/reviewplot.html', auto_open = False) 
 
 
-#plot_all_tweets(tweets)
+plot_all_tweets(tweets)
 plot_all_reviews(reviews)
+
+
     
