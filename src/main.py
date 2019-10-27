@@ -27,7 +27,7 @@ def get_randint():
 
 def randomize():
     rand_int = get_randint()
-    if rand_int < 131: 
+    if rand_int < 60: 
         origin = "Twitter"
         df = twitter.iloc[[rand_int]]
         text = df['Tweet'].iat[0]
@@ -71,7 +71,6 @@ def randomizer():
 @app.route('/receiver', methods = ['GET'])
 def get_json():
     text = create_json()
-    print(text)
     return text
 
 @app.route('/about')
