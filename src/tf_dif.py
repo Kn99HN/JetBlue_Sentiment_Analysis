@@ -7,10 +7,8 @@ Created on Sat Oct 26 13:48:02 2019
 """
 from nltk.tokenize import word_tokenize, sent_tokenize
 import math
-import numpy as np 
 import pandas as pd
 from nltk.corpus import stopwords
-import re
 
 cachedStopWords = set(stopwords.words("english"))
 def preprocess(text):
@@ -91,7 +89,7 @@ def computeTFIDF(TF_scores, IDF_scores):
         TFIDF_scores.append(temp)
     return TFIDF_scores
 
-def get_df(text):
+def get_score(text):
     text = preprocess(text)
     text = sent_tokenize(text)
     freqDict_list = create_freq_dict(text)
@@ -102,10 +100,10 @@ def get_df(text):
     scores = []
     words = []
     for TFDIF in TFDIF_score:
-        scores.append(TFDIF['TFDIF_scores'])
+        scores.append(TFDIF['TFDIF_score'])
         words.append(TFDIF['word'])
     df = pd.DataFrame({"words":words, "scores":scores})
-    df = df[df['scores'] > 0.05]
+    #df = df[df['scores'] > 0.05]
     return df
 
 def get_max(text):

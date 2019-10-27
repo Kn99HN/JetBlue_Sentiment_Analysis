@@ -6,10 +6,14 @@ Created on Sat Oct 26 13:48:02 2019
 @author: khanhnguyen
 """
 import sentiment
+import tf_dif
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 import random 
 import json
+import pandas as pd
+from wordcloud import WordCloud, STOPWORDS 
+
 
 twitter = sentiment.get_tweet()
 aqreview = sentiment.get_review()
@@ -38,6 +42,14 @@ def randomize():
     score = float(df['Sentiment'])
     sentiment = gsent(score)
     return text, origin, sentiment, score
+
+'''def get_extra():
+    text = randomize()
+    text = str(text)
+    tfidf = tf_dif.get_score(text)
+    df = pd.DataFrame(tfidf)
+
+get_extra()'''
 
 def create_json():
     text, origin, sentiment, score = randomize()
