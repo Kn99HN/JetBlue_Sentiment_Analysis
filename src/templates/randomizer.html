@@ -6,6 +6,7 @@
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
          <link rel = "stylesheet" type = "text/css" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
 
         <!-- Material Design for Bootstrap fonts and icons -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
@@ -27,10 +28,13 @@
         <!--    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>-->
         <!--    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>-->
         <title>Title</title>
+        <script>
+            var quote = ['{{ quote[0] }}','{{ quote[1] }}', '{{ quote[2] }}', '{{ quote[3] }}'];
+        </script>
     </head>
     <body class="background-color">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="/">Navbar</a>
+            <a class="navbar-brand" href="/">JetBlue Sentiment Analyzer</a>
             <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
                     data-target="#navbarColor01" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
@@ -55,15 +59,15 @@
         </nav>
         <div class="center-quote-header"> Randomize Quote</div>
         <blockquote class="blockquote text-center border">
-            <p class="mb-0 wrap">""ddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddf dsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfs dddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsd</p>
-            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+            <p class="mb-0 wrap" id="quote">""ddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddf dsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfs dddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsd</p>
+            <footer class="blockquote-footer"> <cite title="Source Title" id="source"></cite></footer>
         </blockquote>
         <div class="row randomizer-card-row" id="cards">
             <div class="card border-dark mb-3 randomizer-card">
               <div class="card-header text-center">Quote Analysis</div>
               <div class="card-body">
-                <h4 class="card-title">Dark card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h4 class="card-title">Sentiment</h4>
+                <p class="card-text" id="sentiment"></p>
               </div>
             </div>
 <!--            <div class="card border-dark mb-3 randomizer-card">-->
@@ -75,7 +79,7 @@
 <!--            </div>-->
         </div>
         <div class="randomizer-btn">
-            <button type="button" class="btn btn-primary btn-lg">Randomize!</button>
+            <button type="button" class="btn btn-primary btn-lg" onclick="setQuote(quote)">Randomize!</button>
         </div>
     </body>
 </html>

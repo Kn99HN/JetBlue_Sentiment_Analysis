@@ -5,11 +5,11 @@ Created on Sat Oct 26 13:48:02 2019
 
 @author: khanhnguyen
 """
-
+import sentiment
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 
-
+data = sentiment.get_data()
 @app.route('/')
 def result():
     return render_template("index.html")
@@ -20,9 +20,10 @@ def data():
     return render_template("data.html")
 
 
-@app.route('/randomizer')
+@app.route('/randomizer/', methods=['POST'])
 def randomizer():
-    return render_template("randomizer.html")
+    quote = getQuote()
+    return render_template("randomizer.html", quote=quote)
 
 
 @app.route('/about')
