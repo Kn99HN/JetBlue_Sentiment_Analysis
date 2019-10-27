@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -28,9 +28,7 @@
         <!--    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>-->
         <title>Title</title>
     </head>
-
-
-    <body>
+    <body class="background-color">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="/">Navbar</a>
             <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
@@ -40,13 +38,13 @@
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/data">Data</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/randomizer">Sentiment <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -55,43 +53,29 @@
                 </ul>
             </div>
         </nav>
-
-
-        <div class="jumbotron">
-            <h1 class="display-3">JetBlue Sentiment Analysis</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-                featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="/data" role="button">Learn more</a>
-            </p>
+        <div class="center-quote-header"> Randomize Quote</div>
+        <blockquote class="blockquote text-center border">
+            <p class="mb-0 wrap">""ddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddf dsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfs dddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsd</p>
+            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+        </blockquote>
+        <div class="row randomizer-card-row" id="cards">
+            <div class="card border-dark mb-3 randomizer-card">
+              <div class="card-header text-center">Quote Analysis</div>
+              <div class="card-body">
+                <h4 class="card-title">Dark card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+<!--            <div class="card border-dark mb-3 randomizer-card">-->
+<!--              <div class="card-header">Header</div>-->
+<!--              <div class="card-body">-->
+<!--                <h4 class="card-title">Dark card title</h4>-->
+<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--              </div>-->
+<!--            </div>-->
         </div>
-
-        <div class="row card-dim" id="cards">
-            <div class="card text-white bg-primary mb-3 card-spacing">
-              <div class="card-header">Header</div>
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-            <div class="card text-white bg-primary mb-3 card-spacing">
-              <div class="card-header">Header</div>
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-            <div class="card text-white bg-primary mb-3 card-spacing">
-              <div class="card-header">Header</div>
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
+        <div class="randomizer-btn">
+            <button type="button" class="btn btn-primary btn-lg">Randomize!</button>
         </div>
-
     </body>
 </html>
-

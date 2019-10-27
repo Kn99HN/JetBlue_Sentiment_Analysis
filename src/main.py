@@ -15,6 +15,21 @@ def result():
     return render_template("index.html")
 
 
+@app.route('/data')
+def data():
+    return render_template("data.html")
+
+
+@app.route('/randomizer')
+def randomizer():
+    return render_template("randomizer.html")
+
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+
 # @app.route('/hello')
 # def hello():
 #     return 'Hello, World'
