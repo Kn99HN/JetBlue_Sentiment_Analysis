@@ -63,11 +63,15 @@ def airlinequality_data():
     return render_template("airquality_data.html")
 
 
-@app.route('/randomizer/', methods=['POST'])
+@app.route('/randomizer')
 def randomizer():
-    quote = getQuote()
-    return render_template("randomizer.html", quote=quote)
+    return render_template("randomizer.html")
 
+@app.route('/receiver', methods = ['POST'])
+def get_json():
+    text = create_json()
+    print(text)
+    return text
 
 @app.route('/about')
 def about():
@@ -79,5 +83,5 @@ def about():
 #     return 'Hello, World'
     
 
-'''if __name__ == '__main__':
-    app.run() '''
+if __name__ == '__main__':
+    app.run()

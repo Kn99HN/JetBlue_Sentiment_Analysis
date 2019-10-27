@@ -29,7 +29,28 @@
         <!--    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>-->
         <title>Title</title>
         <script>
-            var quote = ['{{ quote[0] }}','{{ quote[1] }}', '{{ quote[2] }}', '{{ quote[3] }}'];
+                // setup some JSON to use
+                var data
+                window.onload = function() {
+                	// setup the button click
+                    	document.getElementById("theButton").onclick = function() {
+                        		doWork()
+                    	};
+                }
+
+                function doWork() {
+                    	// ajax the JSON to the server
+                    	data $.post("receiver", data, function(){
+                        
+                        document.getElementById("quote").innerHTML = data[0].text;
+                        document.getElementById("source").innerHTML = data[0].origin;
+                        document.getElementById("sentiment").innerHTML = data['sentiment'];
+                        document.getElementById("quote").innerHTML = data['score'];
+                        
+                    	});
+                	// stop link reloading the page
+                 event.preventDefault();
+                }
         </script>
     </head>
     <body class="background-color">
@@ -62,7 +83,9 @@
         </nav>
         <div class="center-quote-header"> Randomize Quote</div>
         <blockquote class="blockquote text-center border">
-            <p class="mb-0 wrap" id="quote">""ddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddf dsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfs dddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsdddfdsfsd</p>
+            <p class="mb-0 wrap" id="quote">
+                    
+            </p>
             <footer class="blockquote-footer"> <cite title="Source Title" id="source"></cite></footer>
         </blockquote>
         <div class="row randomizer-card-row" id="cards">
@@ -82,7 +105,7 @@
 <!--            </div>-->
         </div>
         <div class="randomizer-btn">
-            <button type="button" class="btn btn-primary btn-lg" onclick="setQuote(quote)">Randomize!</button>
+            <button type="button" id = "theButton">Randomize!</button>
         </div>
     </body>
 </html>
