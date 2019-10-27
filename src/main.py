@@ -30,10 +30,11 @@ def randomize():
     if rand_int < 131: 
         origin = "Twitter"
         df = twitter.iloc[[rand_int]]
+        text = df['Tweet'].iat[0]
     else:
         origin = "Airline Quality"
         df = aqreview.iloc[[rand_int]]
-    text = df['Review'].iat[0]
+        text = df['Review'].iat[0]
     score = float(df['Sentiment'])
     sentiment = gsent(score)
     return text, origin, sentiment, score
@@ -42,7 +43,7 @@ def create_json():
     text, origin, sentiment, score = randomize()
     data = {}
     data['text'] = text
-    data['orgin'] = origin
+    data['origin'] = origin
     data['sentiment'] = sentiment
     data['score'] = score
     json_data = json.dumps(data)
@@ -67,7 +68,7 @@ def airlinequality_data():
 def randomizer():
     return render_template("randomizer.html")
 
-@app.route('/receiver', methods = ['POST'])
+@app.route('/receiver', methods = ['GET'])
 def get_json():
     text = create_json()
     print(text)

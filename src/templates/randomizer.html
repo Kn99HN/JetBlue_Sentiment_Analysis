@@ -39,15 +39,18 @@
                 }
 
                 function doWork() {
-                    	// ajax the JSON to the server
-                    	data $.post("receiver", data, function(){
-                        
-                        document.getElementById("quote").innerHTML = data[0].text;
-                        document.getElementById("source").innerHTML = data[0].origin;
-                        document.getElementById("sentiment").innerHTML = data['sentiment'];
-                        document.getElementById("quote").innerHTML = data['score'];
-                        
-                    	});
+                   $.ajax({
+                        type:"GET",
+                        dataType: "json",
+                        url: "http://127.0.0.1:5000/receiver",
+                        success: function(data){
+                            buf1 = data
+                            document.getElementById("quote").innerHTML = data['text'];
+                            document.getElementById("source").innerHTML = "Someone on " + data['origin'];
+                            document.getElementById("sentiment").innerHTML = "Our analysis shows that this quote is " + data['sentiment'];
+                            document.getElementById("score").innerHTML = "Sentiment: " + data['score'] + " on a scale of 1";
+                        }
+                })
                 	// stop link reloading the page
                  event.preventDefault();
                 }
@@ -92,7 +95,7 @@
             <div class="card border-dark mb-3 randomizer-card">
               <div class="card-header text-center">Quote Analysis</div>
               <div class="card-body">
-                <h4 class="card-title">Sentiment</h4>
+                <h4 class="card-title" id = "score">Sentiment: </h4>
                 <p class="card-text" id="sentiment"></p>
               </div>
             </div>
