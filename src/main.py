@@ -12,7 +12,6 @@ app = Flask(__name__)
 import random 
 import json
 import pandas as pd
-from wordcloud import WordCloud, STOPWORDS 
 
 
 twitter = sentiment.get_tweet()
